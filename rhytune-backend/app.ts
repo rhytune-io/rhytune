@@ -1,14 +1,15 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, { Application, Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs'; // If no types are available, consider using any or declare minimal custom types
 import passport from 'passport';
 import session from 'express-session';
-import './auth';
-import dotenv from 'dotenv';
-dotenv.config();
+import './src/auth';
+
 
 const app: Application = express();
-const swaggerDocument = YAML.load('./swagger.yaml');
+const swaggerDocument = YAML.load('./src/swagger.yaml');
 
 // Body parsing Middleware
 app.use(express.json());
@@ -39,5 +40,7 @@ app.get('/auth/github/callback',
 
 // Swagger UI setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+console.log('see api docs at http://localhost:3000/api-docs');
 
 export default app;

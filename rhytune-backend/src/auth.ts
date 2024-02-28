@@ -3,6 +3,8 @@ import { Strategy as GitHubStrategy } from 'passport-github';
 import { Request } from 'express';
 import User, { IUser } from './User'; // Ensure this path is correct
 
+console.log(process.env.GITHUB_CLIENT_ID);
+
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID as string,
     clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
@@ -26,6 +28,7 @@ passport.use(new GitHubStrategy({
 passport.serializeUser<string>((user: Express.User, done) => {
     process.nextTick(() => {
         // Assuming user.id exists based on the extended Express.User interface
+        // @ts-ignore
         done(null, user.id); // Serialize the user by id
     });
 });
