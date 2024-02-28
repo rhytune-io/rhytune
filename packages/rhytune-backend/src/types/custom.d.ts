@@ -1,4 +1,4 @@
-import { IUser } from '../models/User';
+import { InterfaceUser } from 'rhytune-shared-types';
 
 declare global {
     namespace Express {

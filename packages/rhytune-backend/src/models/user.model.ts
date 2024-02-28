@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { IUser, IUserModel } from './user.interface';
+import { User as UserInterface, UserModel } from 'rhytune-shared-types';
 
 const UserSchema: Schema = new Schema({
     uuid: { type: String, required: true, unique: true },
@@ -36,4 +36,4 @@ UserSchema.statics.findOrCreate = async function (profile) {
     return user;
 };
 
-export default mongoose.model<IUser, IUserModel>('User', UserSchema);
+export default mongoose.model<UserInterface, UserModel>('User', UserSchema);

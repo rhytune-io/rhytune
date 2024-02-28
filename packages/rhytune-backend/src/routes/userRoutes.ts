@@ -1,7 +1,7 @@
 // userRoutes.ts
 
 import { Router, Request, Response } from 'express';
-import User from '../models/User'; // 假设你的用户模型定义在这个文件中
+import User from '../models/user.model'; // 假设你的用户模型定义在这个文件中
 
 const userRouter = Router();
 

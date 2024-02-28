@@ -3,8 +3,17 @@
     "target": "es2016",
     "module": "commonjs",
     "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
-      "*": ["./node_modules/*", "./src/types/*"]
+      "*": [
+        "./node_modules/*",
+        "../../node_modules/*",
+        "./src/types/*",
+        "../rhytune-shared-types/dist/*"
+      ],
+      "rhytune-shared-types": [
+        "../rhytune-shared-types/dist/index.d.ts"
+      ] // 根据实际情况调整
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,6 +21,15 @@
     "skipLibCheck": true,
     "outDir": "./dist",
   },
-  "include": ["src/**/*", "src/types/**/*", "index.ts", "app.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "src/**/*",
+    "src/types/**/*",
+    "index.ts",
+    "app.ts",
+    "../rhytune-shared-types/src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }

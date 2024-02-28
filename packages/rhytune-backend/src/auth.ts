@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Request } from 'express';
-import User, { IUser } from './models/User'; // Ensure this path is correct
+import User from './models/user.model'; // Ensure this path is correct
 import { v4 as uuidv4 } from 'uuid';
 
 passport.use(new GitHubStrategy({
