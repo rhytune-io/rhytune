@@ -1,0 +1,15 @@
+{
+  "name": "rhytune",
+  "version": "1.0.0",
+  "description": "Open source multi language lyrics and songs database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

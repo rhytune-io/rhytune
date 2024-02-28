@@ -1,0 +1,60 @@
+swagger: '2.0'
+info:
+  title: GitHub Auth Example API
+  version: 1.0.0
+host: localhost:3000
+schemes:
+  - http
+basePath: /api/v1
+paths:
+  /auth/github:
+    get:
+      tags:
+        - Authentication
+      summary: Redirects to GitHub authentication page
+      responses:
+        302:
+          description: Redirect to GitHub for authentication
+  /auth/github/callback:
+    get:
+      tags:
+        - Authentication
+      summary: GitHub callback URL
+      responses:
+        200:
+          description: Authentication successful
+        401:
+          description: Authentication failed
+  /users/github/{githubId}:
+    get:
+      tags:
+        - Users
+      summary: Get user by GitHub Id
+      parameters:
+        - $ref: '#/parameters/githubIdParam'
+      responses:
+        200:
+          description: User found
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: User not found
+
+parameters:
+  githubIdParam:
+    name: githubId
+    in: path
+    description: GitHub Id of the user
+    required: true
+    type: string
+
+definitions:
+  User:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      image:
+        type: string
