@@ -91,8 +91,8 @@ songRouter.get('/', async (req, res) => {
         if (expandFields.includes('lyrics')) {
             query.populate('lyrics');
         }
-        if (expandFields.includes('relatedVersions')) {
-            query.populate('relatedVersions');
+        if (expandFields.includes('relatedSongVersions')) {
+            query.populate('relatedSongVersions');
         }
         if (expandFields.includes('editRecord')) {
             query.populate('editRecord');
@@ -134,7 +134,7 @@ songRouter.get('/', async (req, res) => {
  */
 songRouter.get('/:id', async (req, res) => {
     try {
-        const song = await Song.findById(req.params.id).populate('artists.artistId').populate('albums.albumId').populate('lyrics').populate('relatedVersions').populate('editRecord');
+        const song = await Song.findById(req.params.id).populate('artists.artistId').populate('albums.albumId').populate('lyrics').populate('relatedSongVersions').populate('editRecord');
         if (!song) {
             return res.status(404).json({ message: 'Song not found' });
         }
@@ -176,7 +176,7 @@ songRouter.get('/:id', async (req, res) => {
  */
 songRouter.patch('/:id', async (req, res) => {
     try {
-        const song = await Song.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('artists.artistId').populate('albums.albumId').populate('lyrics').populate('relatedVersions').populate('editRecord');
+        const song = await Song.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('artists.artistId').populate('albums.albumId').populate('lyrics').populate('relatedSongVersions').populate('editRecord');
         if (!song) {
             return res.status(404).json({ message: 'Song not found' });
         }

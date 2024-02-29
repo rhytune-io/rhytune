@@ -19,14 +19,14 @@ export interface Song {
     artists: ArtistSong[];
     albums: AlbumSong[];
     lyrics: Lyric[];
-    relatedVersions: Song[]; // Updated to indicate association with other Song entities
+    relatedSongVersions: Song[]; // Updated to indicate association with other Song entities
     editRecord: EditRecord[];
 }
 
 // Model interfaces with new methods
 export interface SongModel {
     findById(id: string): Promise<Song | null>;
-    findWithRelatedVersions(id: string): Promise<Song | null>; // 新增方法：查找歌曲及其相关版本
+    findWithRelatedSongVersions(id: string): Promise<Song | null>; // 新增方法：查找歌曲及其相关版本
     // 假设addEditRecord和addRelatedVersion是在实例上调用的方法，它们不会直接在SongModel上定义，
     // 因为接口通常用于静态方法。如果需要，可以为实例方法创建一个单独的接口。
 }

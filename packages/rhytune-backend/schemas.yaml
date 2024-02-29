@@ -42,7 +42,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Lyric'
-        relatedVersions:
+        relatedSongVersions:
           type: array
           items:
             $ref: '#/components/schemas/Song'

@@ -34,7 +34,7 @@ const songSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Lyric'
     }],
-    relatedVersions: [{ // 更新为正确引用其他 Song 实例
+    relatedSongVersions: [{ // 更新为正确引用其他 Song 实例
         type: Schema.Types.ObjectId,
         ref: 'Song'
     }],
@@ -56,14 +56,14 @@ songSchema.methods.addEditRecord = function (editRecordId: typeof Schema.Types.O
 };
 
 // 增加静态方法：查找并返回包含相关版本的歌曲
-songSchema.statics.findWithRelatedVersions = function (id: string): Promise<SongDocument | null> {
-    return this.findById(id).populate('relatedVersions').exec();
+songSchema.statics.findWithRelatedSongVersions = function (id: string): Promise<SongDocument | null> {
+    return this.findById(id).populate('relatedSongVersions').exec();
 };
 
 // 如果有必要处理歌曲的版本控制，可以添加如下方法
 songSchema.methods.addRelatedVersion = function (relatedVersionId: typeof Schema.Types.ObjectId) {
-    if (!this.relatedVersions.includes(relatedVersionId)) {
-        this.relatedVersions.push(relatedVersionId);
+    if (!this.relatedSongVersions.includes(relatedVersionId)) {
+        this.relatedSongVersions.push(relatedVersionId);
         return this.save();
     }
     return Promise.resolve(this); // 如果相关版本已存在，直接返回当前实例
