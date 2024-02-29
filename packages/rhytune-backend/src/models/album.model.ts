@@ -2,10 +2,16 @@
 
 import mongoose, { Schema, Document } from 'mongoose';
 import { Album as AlbumInterface } from 'rhytune-shared-types'; // 确保这个路径匹配你的项目结构
+import { v4 as uuidv4 } from 'uuid';
 
 interface AlbumDocument extends AlbumInterface, Document { }
 
 const albumSchema = new Schema({
+    uuid: {
+        type: String,
+        default: uuidv4, // 自动生成UUID
+        unique: true // 确保UUID的唯一性
+    },
     title: {
         type: String,
         required: true

@@ -1,10 +1,16 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Artist as ArtistInterface } from 'rhytune-shared-types';
+import { v4 as uuidv4 } from 'uuid';
 
 // 如果ArtistInterface中有id属性，确保它是可选的或类型为string
 interface ArtistDocument extends Omit<ArtistInterface, 'id'>, Document { }
 
 const artistSchema = new Schema({
+    uuid: {
+        type: String,
+        default: uuidv4, // 自动生成UUID
+        unique: true // 确保UUID的唯一性
+    },
     name: {
         type: String,
         required: true

@@ -3,6 +3,7 @@
 import express from 'express';
 import Artist from '../models/artist.model'; // Adjust the path to match your project structure
 const artistRouter = express.Router();
+import ArtistSong from '../models/artistSong.model';
 
 /**
  * Routes outline:
@@ -45,8 +46,32 @@ const artistRouter = express.Router();
  */
 artistRouter.post('/', async (req, res) => {
     try {
-        const artist = new Artist(req.body);
+        // 创建新的艺术家实例
+        console.log('req.body:', req.body);
+        const artist = new Artist({
+            name: req.body.name,
+            // 其他艺术家属性
+        });
         await artist.save();
+        console.log('artist:', artist);
+        // 假设 Artist 和 Song 模型已经设置好了关系
+        // 并且存在一个方法来关联艺术家和歌曲
+        const songIds: string[] = req.body.songIds;
+        if (songIds && songIds.length > 0) {
+            console.log('songIds:', songIds);
+            // 对每个歌曲ID，创建 ArtistSong 关系
+            songIds.forEach(async (songId) => {
+                // 这里的实现取决于你的 ArtistSong 模型具体是如何定义的
+                // 以下是一个假设的实现
+                const artistSong = new ArtistSong({
+                    artistId: artist._id,
+                    songId: songId
+                });
+                await artistSong.save();
+            });
+            console.log('ArtistSong relations created');
+        }
+
         res.status(201).send(artist);
     } catch (error) {
         res.status(400).send(error);

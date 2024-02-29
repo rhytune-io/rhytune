@@ -5,7 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { User as UserInterface, UserModel } from 'rhytune-shared-types';
 
 const UserSchema: Schema = new Schema({
-    uuid: { type: String, required: true, unique: true },
+    uuid: {
+        type: String,
+        default: uuidv4, // 自动生成UUID
+        unique: true // 确保UUID的唯一性
+    },
     id: { type: String, required: true },
     username: { type: String, required: true },
     githubId: { type: String, required: true },

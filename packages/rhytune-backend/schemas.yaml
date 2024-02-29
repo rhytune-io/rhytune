@@ -108,6 +108,10 @@ components:
           properties:
             id:
               type: string
+            songIds:
+              type: array
+              items:
+                type: string
     AlbumBase:
       type: object
       properties:
