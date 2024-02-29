@@ -70,13 +70,40 @@ songRouter.post('/', async (req, res) => {
  *               items:
  *                 $ref: '#/components/schemas/Song'
  */
+
+
+
 songRouter.get('/', async (req, res) => {
     try {
-        const songs = await Song.find().populate('artists.artistId').populate('albums.albumId').populate('lyrics').populate('relatedVersions').populate('editRecord');
+        // 确保expand是一个字符串
+        const expandFields = typeof req.query.expand === 'string' ? req.query.expand.split(',') : [];
+
+        // 初始化查询并根据expand参数动态决定是否展开关联字段
+        // 注意：这里使用链式调用而不是重新赋值给query
+        const query = Song.find();
+
+        if (expandFields.includes('artists')) {
+            query.populate('artists.artistId');
+        }
+        if (expandFields.includes('albums')) {
+            query.populate('albums.albumId');
+        }
+        if (expandFields.includes('lyrics')) {
+            query.populate('lyrics');
+        }
+        if (expandFields.includes('relatedVersions')) {
+            query.populate('relatedVersions');
+        }
+        if (expandFields.includes('editRecord')) {
+            query.populate('editRecord');
+        }
+
+        // 执行查询并返回结果
+        const songs = await query.exec();
         res.json(songs);
     } catch (error) {
-        // @ts-ignore
-        res.status(500).json({ message: (error as Error).message });
+        console.error(error); // 使用合适的日志记录方式记录错误
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 

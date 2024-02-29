@@ -112,6 +112,7 @@ components:
               type: array
               items:
                 type: string
+              example: ['65dfe0d4fcd013f6a6002cf6']
     AlbumBase:
       type: object
       properties:
