@@ -9,6 +9,12 @@ export interface User {
     // Define other fields as necessary
 }
 
+export interface UserModel {
+    findByid(id: string): Promise<User | null>;
+    findOrCreate(profile: any): Promise<User>;
+    findByGithubId(githubId: string): Promise<User | null>;
+}
+
 export interface Song {
     id: string;
     title: string;
@@ -17,6 +23,12 @@ export interface Song {
     lyrics: Lyric[];
     relatedVersions: Song[]; // Updated to indicate association with other Song entities
     editRecord: EditRecord[];
+}
+
+// Model interfaces with new methods
+export interface SongModel {
+    findById(id: string): Promise<Song | null>;
+    // Additional methods as necessary
 }
 
 export interface Lyric {
@@ -62,11 +74,6 @@ export interface EditRecord {
     changeDescription: string; // Change details
 }
 
-// Model interfaces with new methods
-export interface SongModel {
-    findById(id: string): Promise<Song | null>;
-    // Additional methods as necessary
-}
 
 export interface LyricModel {
     findBySongIdAndLangCode(songId: string, langCode: string): Promise<Lyric[]>;
@@ -81,10 +88,4 @@ export interface ArtistModel {
 export interface AlbumModel {
     findById(id: string): Promise<Album | null>;
     // Additional methods as necessary
-}
-
-export interface UserModel {
-    findByid(id: string): Promise<User | null>;
-    findOrCreate(profile: any): Promise<User>;
-    findByGithubId(githubId: string): Promise<User | null>;
 }

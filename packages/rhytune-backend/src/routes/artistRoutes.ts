@@ -1,18 +1,26 @@
 // rhytune-backend/src/routes/artistRoutes.js
 
-const express = require('express');
-const Artist = require('../models/artist.model'); // 调整路径以匹配你的项目结构
-const router = express.Router();
+import express from 'express';
+import Artist from '../models/artist.model'; // Adjust the path to match your project structure
+const artistRouter = express.Router();
+
+/**
+ * Routes outline:
+ * - POST /artists: Create a new artist
+ * - GET /artists: List all artists
+ * - GET /artists/{id}: Get a specific artist by ID
+ * - PATCH /artists/{id}: Update an artist by ID
+ * - DELETE /artists/{id}: Delete an artist by ID
+ */
 
 /**
  * @swagger
  * tags:
  *   name: Artists
- *   description: Artist management
+ *   description: Artist management endpoints
  */
 
-// 创建Artist
-
+// Create Artist
 /**
  * @swagger
  * /artists:
@@ -35,8 +43,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request
  */
-
-router.post('/', async (req, res) => {
+artistRouter.post('/', async (req, res) => {
     try {
         const artist = new Artist(req.body);
         await artist.save();
@@ -46,7 +53,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-
+// Get all Artists
 /**
  * @swagger
  * /artists:
@@ -63,10 +70,7 @@ router.post('/', async (req, res) => {
  *               items:
  *                 $ref: '#/components/schemas/Artist'
  */
-
-
-// 获取所有Artist
-router.get('/', async (req, res) => {
+artistRouter.get('/', async (req, res) => {
     try {
         const artists = await Artist.find({});
         res.send(artists);
@@ -75,7 +79,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-
+// Get Artist by ID
 /**
  * @swagger
  * /artists/{id}:
@@ -99,10 +103,7 @@ router.get('/', async (req, res) => {
  *       404:
  *         description: Artist not found
  */
-
-
-// 根据ID获取Artist
-router.get('/:id', async (req, res) => {
+artistRouter.get('/:id', async (req, res) => {
     try {
         const artist = await Artist.findById(req.params.id);
         if (!artist) {
@@ -114,7 +115,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-
+// Update Artist
 /**
  * @swagger
  * /artists/{id}:
@@ -142,10 +143,7 @@ router.get('/:id', async (req, res) => {
  *       404:
  *         description: Artist not found
  */
-
-
-// 更新Artist
-router.patch('/:id', async (req, res) => {
+artistRouter.patch('/:id', async (req, res) => {
     try {
         const artist = await Artist.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!artist) {
@@ -157,7 +155,7 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
-
+// Delete Artist
 /**
  * @swagger
  * /artists/{id}:
@@ -177,10 +175,7 @@ router.patch('/:id', async (req, res) => {
  *       404:
  *         description: Artist not found
  */
-
-
-// 删除Artist
-router.delete('/:id', async (req, res) => {
+artistRouter.delete('/:id', async (req, res) => {
     try {
         const artist = await Artist.findByIdAndDelete(req.params.id);
         if (!artist) {
@@ -192,4 +187,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default artistRouter;

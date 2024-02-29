@@ -4,6 +4,16 @@ import passport from 'passport';
 const authRouter = Router();
 
 /**
+ * Routes outline:
+ * - GET /auth/github: Redirects to GitHub authentication page
+ * - GET /auth/github/callback: GitHub authentication callback URL
+ * - GET /auth/google: Redirects to Google authentication page
+ * - GET /auth/google/callback: Google authentication callback URL
+ * - GET /auth/logout: Logs out the user
+ * - GET /auth/user: Returns the currently logged in user
+ */
+
+/**
  * @swagger
  * tags:
  *   - name: Authentication

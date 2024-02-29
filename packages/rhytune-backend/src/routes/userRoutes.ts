@@ -4,6 +4,14 @@ import User from '../models/user.model'; // 假设你的用户模型定义在这
 const userRouter = Router();
 
 /**
+ * Routes outline:
+ * - GET /users: List all users
+ * - GET /users/{id}: Get a specific user by ID
+ * - GET /users/github/{githubId}: Get a specific user by GitHub ID
+ * - POST /users/findOrCreate: Find or create a user
+ */
+
+/**
  * @swagger
  * /users/github/{githubId}:
  *   get:
