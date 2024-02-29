@@ -1,0 +1,120 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        uuid:
+          type: string
+        username:
+          type: string
+        githubId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        avatarUrl:
+          type: string
+    Song:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        artists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtistSong'
+        albums:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumSong'
+        lyrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lyric'
+        relatedVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+        editRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditRecord'
+    Lyric:
+      type: object
+      properties:
+        id:
+          type: string
+        songId:
+          type: string
+        langCode:
+          type: string
+        text:
+          type: string
+        versionInfo:
+          type: string
+        editRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditRecord'
+    Artist:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtistSong'
+        editRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditRecord'
+    Album:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumSong'
+        releaseDate:
+          type: string
+          format: date
+        editRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditRecord'
+    EditRecord:
+      type: object
+      properties:
+        editedByUserId:
+          type: string
+        date:
+          type: string
+          format: date
+        changeDescription:
+          type: string
+    ArtistSong:
+      type: object
+      properties:
+        artistId:
+          type: string
+        songId:
+          type: string
+    AlbumSong:
+      type: object
+      properties:
+        albumId:
+          type: string
+        songId:
+          type: string

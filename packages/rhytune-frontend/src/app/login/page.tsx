@@ -1,15 +1,25 @@
-'use client';
+"use client";
 
+import { useState } from 'react';
 import { signIn, useSession, signOut, SessionProvider } from 'next-auth/react';
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-// import { authOptions } from "pages/api/auth/[...nextauth]/route"
-
+import { getUserByGithubId } from '../api/services/service'; // 导入 getUserByGithubId 函数
 
 const LoginPage = () => {
-
     const sessionObj = useSession();
     const { data: session } = useSession();
+    const [userInfo, setUserInfo] = useState(null);
+
+    const handleGetUserByGithubId = async () => {
+        try {
+            const githubId = '5173244'; // 你的 GitHub 用户 ID
+            const user = await getUserByGithubId(githubId);
+            setUserInfo(user);
+        } catch (error) {
+            console.error('Error fetching user by GitHub ID:', error);
+        }
+    };
 
     return (
         <SessionProvider>
@@ -31,6 +41,19 @@ const LoginPage = () => {
                             <FaGoogle /> Continue with Google
                         </Button>
                     </div>
+                )}
+
+                {/* 增加测试按钮 */}
+                <Button onClick={handleGetUserByGithubId}>
+                    Test getUserByGithubId
+                </Button>
+                {/* 显示用户信息 */}
+                {userInfo && (
+                    <Box mt={4}>
+                        <h2>User Info:</h2>
+                        <p>Username: {userInfo.username}</p>
+                        {/* 显示其他用户信息 */}
+                    </Box>
                 )}
             </main>
         </SessionProvider>

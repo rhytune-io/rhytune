@@ -1,4 +1,5 @@
 // api/service.ts
+import { User } from 'rhytune-shared-types';
 
 const apiUrl: string = process.env.NEXT_PUBLIC_API_URL || '';
 
@@ -29,8 +30,8 @@ export async function getUserByGithubId(githubId: string): Promise<User> {
     return await fetchData<User>(`users/github/${githubId}`);
 }
 
-// 其他 API 请求函数...
-
-interface User {
-    // 根据后端返回的用户数据定义接口
+export async function createUser(user: Partial<User>): Promise<User> {
+    return await fetchData<User>('users', options);
 }
+
+// 其他 API 请求函数...
