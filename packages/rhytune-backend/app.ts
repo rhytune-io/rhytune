@@ -5,9 +5,14 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import session from 'express-session';
 import passport from 'passport';
-import authRoutes from './src/routes/authRoutes';
+// import authRoutes from './src/routes/authRoutes';
 import userRoutes from './src/routes/userRoutes';
 import artistRoutes from './src/routes/artistRoutes';
+import songRoutes from './src/routes/songRoutes';
+import albumRoutes from './src/routes/albumRoutes';
+// import editRecordRoutes from './src/routes/editRecordRoutes';
+import lyricRoutes from './src/routes/lyricRoutes';
+
 const cors = require('cors');
 
 const app: Application = express();
@@ -24,9 +29,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/v1/auth', authRoutes);
+// app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/artists', artistRoutes);
+app.use('/api/v1/songs', songRoutes);
+app.use('/api/v1/albums', albumRoutes);
+// app.use('/api/v1/edit-records', editRecordRoutes);
+app.use('/api/v1/lyrics', lyricRoutes);
 
 // Swagger JS Doc 配置
 const swaggerDefinition = {

@@ -1,5 +1,4 @@
 export interface User {
-    id: string;
     uuid: string;
     username: string;
     githubId: string;
@@ -16,7 +15,6 @@ export interface UserModel {
 }
 
 export interface Song {
-    id: string;
     title: string;
     artists: ArtistSong[];
     albums: AlbumSong[];
@@ -28,11 +26,19 @@ export interface Song {
 // Model interfaces with new methods
 export interface SongModel {
     findById(id: string): Promise<Song | null>;
-    // Additional methods as necessary
+    findWithRelatedVersions(id: string): Promise<Song | null>; // 新增方法：查找歌曲及其相关版本
+    // 假设addEditRecord和addRelatedVersion是在实例上调用的方法，它们不会直接在SongModel上定义，
+    // 因为接口通常用于静态方法。如果需要，可以为实例方法创建一个单独的接口。
+}
+
+// 实例方法接口示例（如果需要的话）
+export interface SongDocumentMethods {
+    addEditRecord(editRecordId: string): Promise<Song>;
+    addRelatedVersion(relatedVersionId: string): Promise<Song>;
 }
 
 export interface Lyric {
-    id: string;
+    uuid: string;
     songId: string;
     langCode: string;
     text: string;
@@ -41,14 +47,14 @@ export interface Lyric {
 }
 
 export interface Artist {
-    id: string;
+    uuid: string;
     name: string;
     songs: ArtistSong[];
     editRecord: EditRecord[];
 }
 
 export interface Album {
-    id: string;
+    uuid: string;
     title: string;
     songs: AlbumSong[];
     releaseDate: Date;

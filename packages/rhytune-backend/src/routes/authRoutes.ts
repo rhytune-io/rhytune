@@ -17,6 +17,7 @@ const authRouter = Router();
  * @swagger
  * tags:
  *   - name: Authentication
+ *     deprecated: true
  *     description: Authentication endpoints for backend use only, not to be consumed directly by the frontend.
  */
 
@@ -25,6 +26,7 @@ const authRouter = Router();
  * @swagger
  * /auth/github:
  *   get:
+ *     deprecated: true
  *     tags:
  *       - Authentication
  *     summary: Redirects to GitHub authentication page.
@@ -40,6 +42,7 @@ authRouter.get('/auth/github',
  * @swagger
  * /auth/github/callback:
  *   get:
+ *     deprecated: true
  *     tags:
  *       - Authentication
  *     summary: GitHub authentication callback URL.
